@@ -2,6 +2,7 @@ package com.antoine.assignment.haud.entities;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -9,6 +10,7 @@ import javax.persistence.*;
 @Setter
 @Entity
 @Table(name= "sims")
+@ToString
 public class Sim {
 
     @Id

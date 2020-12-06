@@ -1,3 +1,5 @@
+Drop table if exists shedlock;
+
 CREATE TABLE shedlock (
   name VARCHAR(64),
   lock_until TIMESTAMP(3) NULL,

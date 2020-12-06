@@ -12,17 +12,32 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Slf4j
-public class BuildCsvResponse {
+public class CsvBuilder {
 
     public void exportToCSV(List<Customer> customers) throws IOException {
 
-        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
+        List<CustomerCsv> customersToExport = new ArrayList<>();
+        customers.forEach(customer -> {
+            CustomerCsv customerCsv = new CustomerCsv(
+                    customer.getId(),
+                    customer.getUsername(),
+                    customer.getName(),
+                    customer.getSurname(),
+                    customer.getAddress(),
+                    customer.getBirthDate(),
+                    customer.getSims().toString()
+            );
+            customersToExport.add(customerCsv);
+        });
+
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
         String currentDateTime = dateFormatter.format(new Date());
-        File file = new File("src/main/java/com/antoine/assignment/haud/exports" + "users_" + currentDateTime + ".csv");
+        File file = new File("src/main/java/com/antoine/assignment/haud/exports/" + "users_" + currentDateTime + ".csv");
 
         boolean success = file.createNewFile();
         if (!success) {
@@ -41,7 +56,7 @@ public class BuildCsvResponse {
 
             // write the beans
             ICsvBeanWriter finalBeanWriter = beanWriter;
-            customers.forEach(customer -> {
+            customersToExport.forEach(customer -> {
                 try {
                     finalBeanWriter.write(customer, header);
                 } catch (IOException e) {

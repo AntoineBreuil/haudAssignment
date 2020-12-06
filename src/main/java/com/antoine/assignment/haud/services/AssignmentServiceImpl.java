@@ -1,6 +1,6 @@
 package com.antoine.assignment.haud.services;
 
-import com.antoine.assignment.haud.builders.BuildCsvResponse;
+import com.antoine.assignment.haud.builders.CsvBuilder;
 import com.antoine.assignment.haud.entities.Customer;
 import com.antoine.assignment.haud.entities.Sim;
 import com.antoine.assignment.haud.exceptions.AssignmentException;
@@ -104,6 +104,7 @@ public class AssignmentServiceImpl implements AssignmentService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<SimModel> getAllSims() {
         List<SimModel> modelList = new ArrayList<>();
         try {
@@ -125,7 +126,7 @@ public class AssignmentServiceImpl implements AssignmentService {
 
         List<Customer> customers = customerRepository.findcustomerHavingBirthday();
         log.info("Found following customers having their birthday today : [{}]", customers.toString());
-        BuildCsvResponse csvBuilder = new BuildCsvResponse();
+        CsvBuilder csvBuilder = new CsvBuilder();
 
         csvBuilder.exportToCSV(customers);
     }

@@ -6,7 +6,7 @@ import lombok.NonNull;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.time.LocalDate;
+import javax.validation.constraints.Pattern;
 
 @Getter
 @Setter
@@ -27,6 +27,8 @@ public class CustomerDTO {
     private String address;
 
     @JsonProperty("birthDate")
-    private LocalDate birthDate;
+    @Pattern(regexp = "^((19|2[0-9])[0-9]{2})-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$")
+    //Will accept february 29th which is an issue, but for the sake of this assignment i will keep it simple
+    private String birthDate;
 
 }

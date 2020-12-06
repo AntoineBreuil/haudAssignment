@@ -11,13 +11,12 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
 
-@Controller
+@RestController
 @Slf4j
 public class AssignmentController {
 
@@ -46,7 +45,7 @@ public class AssignmentController {
     @CrossOrigin
     @ResponseStatus(HttpStatus.OK)
     @PostMapping(value = "/createSim", produces = MediaType.APPLICATION_JSON_VALUE)
-    public void createCustomer(@RequestBody SimDTO simDTO){
+    public void createSim(@RequestBody SimDTO simDTO){
         log.info("New incoming request on POST /createSim with parameters : [{}]", simDTO.toString());
         SimModel sim = mapper.map(simDTO, SimModel.class);
         service.registerSim(sim);
@@ -66,7 +65,7 @@ public class AssignmentController {
     @CrossOrigin
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/getCustomerSims", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<SimDTO> getCustomerSims(@RequestParam String username){
+    public List<SimDTO> getOwnSims(@RequestParam String username){
         log.info("New incoming request on GET /getSims with parameters : [{}]", username);
         return builder.buildSimList(service.getSims(username));
     }
