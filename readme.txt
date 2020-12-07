@@ -45,6 +45,22 @@ Release Notes :
 
 This API requires the following config entries to be set accordingly : 
 
+* spring.jpa.properties.hibernate.jdbc.batch_size=4
+* spring.jpa.properties.hibernate.order_inserts=true
+* spring.jpa.properties.hibernate.order_updates=true
+* spring.jpa.properties.hibernate.generate_statistics=true
+* spring.jpa.properties.javax.persistence.schema-generation.scripts.action=create
+* spring.jpa.properties.javax.persistence.schema-generation.scripts.create-target=create.sql
+* spring.jpa.properties.javax.persistence.schema-generation.scripts.create-source=metadata
+* spring.jpa.properties.hibernate.format_sql=true
+
+* spring.datasource.driverClassName= org.h2.Driver
+* spring.datasource.url= jdbc:h2:mem:shedlock_DB
+* spring.datasource.username= sa
+* spring.datasource.password=
+
+* spring.mail.host=smtp.gmail.com
+* spring.mail.port=587
 * spring.mail.username : The google smtp username used to send the emails to the customers
 * spring.mail.password : The google smtp password used to send the emails to the customers
 * email.subject : the subject of the email sent to customers having their birthdays the following week
